@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="a4367656-67ec-4d06-862a-1b6ae4096aa9" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/Realm of the Mad God.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/player/down_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/player/down_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/player/down_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/player/left_0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/player/left_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/player/left_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/player/left_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/player/right_0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/player/right_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/player/right_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/player/right_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/player/up_0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/player/up_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/player/up_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/player/up_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/player/walk - pitchfork.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/projectile/projectile_0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/game.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/entities/player.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/entities/projectile.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="383qCCJ8rAb6nIwngypYyGoLUaZ" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.main.executor": "Run",
+    "Python.player.executor": "Run",
+    "Python.projectile.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/Bartek/Desktop/Realm of the Mad God",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Bartek\Desktop\Realm of the Mad God\assets\projecttile" />
+      <recent name="C:\Users\Bartek\Desktop\Realm of the Mad God\assets\projectile_0" />
+      <recent name="C:\Users\Bartek\Desktop\Realm of the Mad God\assets\player" />
+      <recent name="C:\Users\Bartek\Desktop\Realm of the Mad God\entities" />
+      <recent name="C:\Users\Bartek\Desktop\Realm of the Mad God\assets" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-PY-242.23339.19" />
+        <option value="bundled-python-sdk-0029f7779945-399fe30bd8c1-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-242.23339.19" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a4367656-67ec-4d06-862a-1b6ae4096aa9" name="Changes" comment="" />
+      <created>1768038471284</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1768038471284</updated>
+      <workItem from="1768038472640" duration="733000" />
+      <workItem from="1768039321891" duration="4981000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Real_of_the_Mad_God$main.coverage" NAME="main Coverage Results" MODIFIED="1768038952252" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Realm_of_the_Mad_God$main.coverage" NAME="main Coverage Results" MODIFIED="1768044151382" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Realm_of_the_Mad_God$player.coverage" NAME="player Coverage Results" MODIFIED="1768043452086" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/entities" />
+    <SUITE FILE_PATH="coverage/Realm_of_the_Mad_God$projectile.coverage" NAME="projectile Coverage Results" MODIFIED="1768044077700" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/entities" />
+  </component>
+</project>
