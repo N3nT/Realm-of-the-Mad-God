@@ -9,10 +9,15 @@ SCREEN_SIZE = (SCREEN_WIDTH, SCREEN_HEIGHT)
 PLAYER_SIZE = 80
 PLAYER_SPEED = 5
 
-# Ustawienia broni
-BULLET_SPEED = 12 #px
-BULLET_LIFETIME = 1000 #ms
-SHOOT_COOLDOWN = 400 #ms
+# spell settings
+BULLET_SPEED = 12
+BULLET_LIFETIME = 1000
+SHOOT_COOLDOWN = 400
+
+# audio settings
+
+MUSIC_VOLUME = 0.05
+SFX_VOLUME = 0.5
 
 ICON_PATH = os.path.join("assets", "icon.png")
 FPS = 60

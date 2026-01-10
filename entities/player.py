@@ -23,10 +23,12 @@ class Player(pygame.sprite.Sprite):
         self.direction = pygame.math.Vector2()
         self.speed = config.PLAYER_SPEED
 
-        # --- NOWE: System walki ---
         self.can_shoot = True
         self.shoot_time = 0
         self.cooldown = config.SHOOT_COOLDOWN
+
+        self.step_timer = 0
+        self.step_delay = 350
 
     def import_assets(self):
         """Wczytuje grafiki: down_0-3, left_0-3, right_0-3, up_0-3"""
@@ -44,6 +46,13 @@ class Player(pygame.sprite.Sprite):
                 img = pygame.transform.scale(img, (config.PLAYER_SIZE, config.PLAYER_SIZE))
                 self.animations[animation_type].append(img)
 
+        sfx_path = os.path.join('assets', 'sfx', 'walking_1.wav')
+        try:
+            self.step_sound = pygame.mixer.Sound(sfx_path)
+            self.step_sound.set_volume(config.SFX_VOLUME)
+        except FileNotFoundError:
+            print("Nie znaleziono pliku dźwiękowego: walking_1.wav")
+            self.step_sound = None  # Zabezpieczenie
 
     def input(self):
         '''Obsluga poruszania sie postaci'''
@@ -98,6 +107,18 @@ class Player(pygame.sprite.Sprite):
             if current_time - self.shoot_time >= self.cooldown:
                 self.can_shoot = True
 
+    def play_step_sfx(self):
+        """Odtwarza dźwięk kroku co określony czas, jeśli gracz się rusza"""
+        # Sprawdzamy czy gracz się rusza
+        if self.direction.magnitude() != 0:
+            current_time = pygame.time.get_ticks()
+
+            # Jeśli minął odpowiedni czas od ostatniego kroku
+            if current_time - self.step_timer > self.step_delay:
+                if self.step_sound:
+                    self.step_sound.play()  # Odtwórz dźwięk
+                self.step_timer = current_time  # Zresetuj timer
+
     def animate(self):
         animation = self.animations[self.status]
 
@@ -118,6 +139,7 @@ class Player(pygame.sprite.Sprite):
 
     def update(self):
         self.input()
+        self.play_step_sfx()
         self.animate()
         self.cooldown_handler()
         self.move()
