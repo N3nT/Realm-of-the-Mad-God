@@ -5,28 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a4367656-67ec-4d06-862a-1b6ae4096aa9" name="Changes" comment="Step sound, and music">
-      <change afterPath="$PROJECT_DIR$/assets/enemies/ghost/ghost_down_0.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/enemies/ghost/ghost_down_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/enemies/ghost/ghost_down_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/enemies/ghost/ghost_right_0.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/enemies/ghost/ghost_right_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/enemies/ghost/ghost_up_0.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/enemies/ghost/ghost_up_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/enemies/ghost/ghost_up_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/music/1.mp3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/music/2.mp3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/music/3.mp3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/music/4.mp3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/player/attack_down.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/player/attack_left.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/player/attack_right.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/player/attack_up.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/player/down_0.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/sfx/attack.mp3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/sfx/walking_1.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/aa.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/enemies/butcher/butcher_0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/enemies/butcher/butcher_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/enemies/butcher/butcher_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/enemies/politician/politician_0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/enemies/politician/politician_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/enemies/politician/politician_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/entities/enemy.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/entities/factory.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/entities/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/entities/player.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/enemies/ghost/ghost_down_0.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/enemies/ghost/ghost_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/enemies/ghost/ghost_down_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/enemies/ghost/ghost_2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/enemies/ghost/ghost_down_2.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/enemies/ghost/ghost_0.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/game.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,6 +60,7 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;Python.aa.executor&quot;: &quot;Run&quot;,
     &quot;Python.game.executor&quot;: &quot;Run&quot;,
     &quot;Python.main.executor&quot;: &quot;Run&quot;,
     &quot;Python.player.executor&quot;: &quot;Run&quot;,
@@ -87,11 +80,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Bartek\Desktop\Realm of the Mad God\assets\enemies\butcher" />
+      <recent name="C:\Users\Bartek\Desktop\Realm of the Mad God\assets\enemies\politicion" />
       <recent name="C:\Users\Bartek\Desktop\Realm of the Mad God\assets\sfx" />
       <recent name="C:\Users\Bartek\Desktop\Realm of the Mad God\assets\player" />
       <recent name="C:\Users\Bartek\Desktop\Realm of the Mad God\assets\enemies\ghost" />
-      <recent name="C:\Users\Bartek\Desktop\Realm of the Mad God\assets\projecttile" />
-      <recent name="C:\Users\Bartek\Desktop\Realm of the Mad God\assets\projectile_0" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -117,6 +110,9 @@
       <workItem from="1768078496823" duration="2369000" />
       <workItem from="1768088311463" duration="4198000" />
       <workItem from="1768097120806" duration="723000" />
+      <workItem from="1768138769135" duration="59000" />
+      <workItem from="1768143948681" duration="5886000" />
+      <workItem from="1768164279894" duration="419000" />
     </task>
     <task id="LOCAL-00001" summary="Player class, moving, animations. Projctile class.">
       <option name="closed" value="true" />
@@ -146,9 +142,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="Step sound, and music" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Realm_of_the_Mad_God$aa.coverage" NAME="aa Coverage Results" MODIFIED="1768161764713" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Real_of_the_Mad_God$main.coverage" NAME="main Coverage Results" MODIFIED="1768038952252" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Realm_of_the_Mad_God$game.coverage" NAME="game Coverage Results" MODIFIED="1768070040602" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/core" />
-    <SUITE FILE_PATH="coverage/Realm_of_the_Mad_God$main.coverage" NAME="main Coverage Results" MODIFIED="1768094402931" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Realm_of_the_Mad_God$main.coverage" NAME="main Coverage Results" MODIFIED="1768164411471" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Realm_of_the_Mad_God$player.coverage" NAME="player Coverage Results" MODIFIED="1768092937170" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/entities" />
     <SUITE FILE_PATH="coverage/Realm_of_the_Mad_God$projectile.coverage" NAME="projectile Coverage Results" MODIFIED="1768051998049" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/entities" />
   </component>
