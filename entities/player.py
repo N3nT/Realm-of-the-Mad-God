@@ -16,6 +16,9 @@ class Player(pygame.sprite.Sprite):
         self.frame_index = 0
         self.animation_speed = 0.15
 
+        self.is_attacking = False
+        self.attack_time = 0
+
         self.import_assets()
 
         self.image = self.animations[self.status][self.frame_index]
@@ -41,10 +44,26 @@ class Player(pygame.sprite.Sprite):
                 file_name = f'{animation_type}_{i}.png'
                 full_path = os.path.join(path, file_name)
 
-
                 img = pygame.image.load(full_path).convert_alpha()
                 img = pygame.transform.scale(img, (config.PLAYER_SIZE, config.PLAYER_SIZE))
                 self.animations[animation_type].append(img)
+
+        self.attack_spirites = {}
+        for dir in ['up', 'down', 'left', 'right']:
+            file_name = f'attack_{dir}.png'
+            full_path = os.path.join(path, file_name)
+            try:
+                img = pygame.image.load(full_path).convert_alpha()
+                img = pygame.transform.scale(img, (config.PLAYER_SIZE, config.PLAYER_SIZE))
+                self.attack_spirites[dir] = img
+            except FileNotFoundError:
+                # Jeśli brakuje pliku ataku, użyjemy 1. klatki zwykłego chodzenia jako zamiennika
+                if self.animations[dir]:
+                    self.attack_sprites[dir] = self.animations[dir][0]
+                else:
+                    surf = pygame.Surface((config.PLAYER_SIZE, config.PLAYER_SIZE))
+                    surf.fill('white')
+                    self.attack_sprites[dir] = surf
 
         sfx_path = os.path.join('assets', 'sfx', 'walking_1.wav')
         try:
@@ -52,7 +71,10 @@ class Player(pygame.sprite.Sprite):
             self.step_sound.set_volume(config.SFX_VOLUME)
         except FileNotFoundError:
             print("Nie znaleziono pliku dźwiękowego: walking_1.wav")
-            self.step_sound = None  # Zabezpieczenie
+            self.step_sound = None
+
+        self.attack_sound = pygame.mixer.Sound(os.path.join('assets', 'sfx', 'attack.mp3'))
+        self.attack_sound.set_volume(config.SFX_VOLUME)
 
     def input(self):
         '''Obsluga poruszania sie postaci'''
@@ -77,11 +99,13 @@ class Player(pygame.sprite.Sprite):
         else:
             self.direction.x = 0
 
-        # --- NOWE: Strzelanie (Lewy Przycisk Myszy) ---
         if mouse[0] and self.can_shoot:
             self.create_bullet()
             self.can_shoot = False
             self.shoot_time = pygame.time.get_ticks()
+
+            self.is_attacking = True
+            self.attack_time = pygame.time.get_ticks()
 
     def create_bullet(self):
         """Oblicza kierunek strzału i tworzy pocisk"""
@@ -97,8 +121,9 @@ class Player(pygame.sprite.Sprite):
             direction = direction.normalize()
 
         # Tworzymy pocisk w miejscu, gdzie stoi gracz
-        # Przekazujemy self.sprite_groups, żeby pocisk trafił do CameraGroup i był rysowany
         Projectile(self.rect.center, direction, self.sprite_groups)
+
+        self.attack_sound.play()
 
     def cooldown_handler(self):
         """Odlicza czas do następnego strzału"""
@@ -120,8 +145,18 @@ class Player(pygame.sprite.Sprite):
                 self.step_timer = current_time  # Zresetuj timer
 
     def animate(self):
-        animation = self.animations[self.status]
+        # Animacje ataku
+        current_time = pygame.time.get_ticks()
+        if self.is_attacking:
+            if current_time - self.attack_time < config.PLAYER_ATTACK_ANIMATION_DURATION:
+                self.image = self.attack_spirites[self.status]
+                return
+            else:
+                # Jeśli czas minął, wyłącz flagę ataku
+                self.is_attacking = False
 
+        # Animacje chodzenia
+        animation = self.animations[self.status]
         if self.direction.magnitude() != 0:
             self.frame_index += self.animation_speed
             if self.frame_index >= len(animation):

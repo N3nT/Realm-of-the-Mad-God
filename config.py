@@ -8,6 +8,7 @@ SCREEN_SIZE = (SCREEN_WIDTH, SCREEN_HEIGHT)
 # player settings
 PLAYER_SIZE = 80
 PLAYER_SPEED = 5
+PLAYER_ATTACK_ANIMATION_DURATION = 200
 
 # spell settings
 BULLET_SPEED = 12
@@ -16,8 +17,12 @@ SHOOT_COOLDOWN = 400
 
 # audio settings
 
-MUSIC_VOLUME = 0.05
+MUSIC_VOLUME = 0.0
 SFX_VOLUME = 0.5
+
+# ghost
+GHOST_WIDTH = 60
+GHOST_HEIGHT = 80
 
 ICON_PATH = os.path.join("assets", "icon.png")
 FPS = 60
