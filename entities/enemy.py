@@ -1,12 +1,17 @@
 import pygame
 import os
 
+from entities.projectile import Projectile
+
+
 class Enemy(pygame.sprite.Sprite):
-    def __init__(self, pos, groups, player, enemy_name, hp, speed):
+    def __init__(self, pos, groups, player, enemy_name, hp, speed, size, shoot_type=None):
         super().__init__(groups)
         self.player = player
         self.speed = speed
         self.health = hp
+        self.size = size
+        self.sprite_groups = groups
 
         self.frame_index = 0
         self.animation_speed = 0.15
@@ -17,6 +22,10 @@ class Enemy(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(topleft=pos)
         self.direction = pygame.math.Vector2()
 
+        self.shoot_type = shoot_type
+        self.can_shoot = True
+        self.shoot_time = 0
+        self.cooldown = 1500
 
     def import_graphics(self, name):
         self.frames = []
@@ -27,25 +36,48 @@ class Enemy(pygame.sprite.Sprite):
             full_path = os.path.join(path, file_name)
             try:
                 self.image = pygame.image.load(full_path).convert_alpha()
-                self.image = pygame.transform.scale(self.image, (60, 60))
+                self.image = pygame.transform.scale(self.image, self.size)
                 self.frames.append(self.image)
             except (FileNotFoundError, TypeError):
                 print(f"OSTRZEŻENIE: Nie znaleziono pliku: {full_path}")
                 pass
 
-    def move(self):
-        '''Przeciwnik idzie do gracza'''
+    def get_player_data(self):
+        enemy_vec = pygame.math.Vector2(self.rect.center)
         player_vec = pygame.math.Vector2(self.player.rect.center)
-        my_vec = pygame.math.Vector2(self.rect.center)
+        distance = (player_vec - enemy_vec).magnitude()
 
-        diff = player_vec - my_vec
-        dist = diff.magnitude()
+        if distance > 0:
+            direction = (player_vec - enemy_vec).normalize()
+        else:
+            direction = pygame.math.Vector2()
 
-        if 20 < dist < 600:  # Reaguje z odległości 600px
-            self.direction = diff.normalize()
+        return distance, direction
+
+    def move(self):
+        '''Przeciwnik idzie do gracza, zatrzymuje sie w odpowiedniej odleglosci'''
+        distance, direction = self.get_player_data()
+
+        if 150 < distance < 600:  # Reaguje z odległości 600px
+            self.direction = direction
             self.rect.center += self.direction * self.speed
         else:
             self.direction = pygame.math.Vector2()
+
+    def shoot(self):
+        if self.shoot_type and self.can_shoot:
+            distance, direction = self.get_player_data()
+
+            if distance < 500:
+                Projectile(self.rect.center, direction, self.sprite_groups, type='enemy')
+                self.can_shoot = False
+                self.shoot_time = pygame.time.get_ticks()
+
+    def shoot_cooldown_handler(self):
+        if not self.can_shoot:
+            current_time = pygame.time.get_ticks()
+            if current_time - self.shoot_time >= self.cooldown:
+                self.can_shoot = True
 
     def animate(self):
         self.frame_index += self.animation_speed
@@ -63,20 +95,23 @@ class Enemy(pygame.sprite.Sprite):
     def update(self):
         self.move()
         self.animate()
+        self.shoot()
+        self.shoot_cooldown_handler()
 
 
 class Ghost(Enemy):
+    # (szerokosc, wysokosc)
     def __init__(self, pos, groups, player, enemy_name, hp, speed):
-        super().__init__(pos, groups, player, enemy_name, hp, speed)
+        super().__init__(pos, groups, player, enemy_name, hp, speed, (60, 80), 'enemy')
 
 class Politician(Enemy):
     def __init__(self, pos, groups, player, enemy_name, hp, speed):
-        super().__init__(pos, groups, player, enemy_name, hp, speed)
+        super().__init__(pos, groups, player, enemy_name, hp, speed, (55, 80))
 
 class Butcher(Enemy):
     def __init__(self, pos, groups, player, enemy_name, hp, speed):
-        super().__init__(pos, groups, player, enemy_name, hp, speed)
+        super().__init__(pos, groups, player, enemy_name, hp, speed, (80, 110))
 
 class Bat(Enemy):
     def __init__(self, pos, groups, player, enemy_name, hp, speed):
-        super().__init__(pos, groups, player, enemy_name, hp, speed)
+        super().__init__(pos, groups, player, enemy_name, hp, speed, (70, 70))

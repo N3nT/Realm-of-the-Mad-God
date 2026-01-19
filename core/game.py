@@ -69,10 +69,10 @@ class Game:
 
     def setup_enemies(self):
         current_level_factory = TestFactory()
-        # current_level_factory.create_ghost((600, 100), [self.all_sprites], self.player)
-        # current_level_factory.create_politician((200, 150), [self.all_sprites], self.player)
-        # current_level_factory.create_butcher((70, 150), [self.all_sprites], self.player)
-        current_level_factory.create_bat((200, 150), [self.all_sprites], self.player)
+        current_level_factory.create_ghost((600, 100), [self.all_sprites], self.player)
+        current_level_factory.create_politician((500, 150), [self.all_sprites], self.player)
+        current_level_factory.create_butcher((400, 150), [self.all_sprites], self.player)
+        current_level_factory.create_bat((300, 150), [self.all_sprites], self.player)
 
     def play_music(self):
         """Odtwarza bieżący utwór z playlisty"""

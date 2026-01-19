@@ -23,13 +23,13 @@ class EnemyFactory(ABC):
 class TestFactory(EnemyFactory):
     """Testowa fabryka do testowania przeciwników"""
     def create_ghost(self, pos, groups, player):
-        return Ghost(pos, groups, player, enemy_name='ghost', hp=50, speed=2)
+        return Ghost(pos, groups, player, enemy_name='ghost', hp=50, speed=0)
 
     def create_politician(self, pos, groups, player):
-        return Politician(pos, groups, player, enemy_name='politician', hp=50, speed=2)
+        return Politician(pos, groups, player, enemy_name='politician', hp=50, speed=0)
 
     def create_butcher(self, pos, groups, player):
-        return Butcher(pos, groups, player, enemy_name='butcher', hp=50, speed=2)
+        return Butcher(pos, groups, player, enemy_name='butcher', hp=50, speed=0)
 
     def create_bat(self, pos, groups, player):
-        return Bat(pos, groups, player, enemy_name='bat', hp=50, speed=5)
+        return Bat(pos, groups, player, enemy_name='bat', hp=50, speed=0)
