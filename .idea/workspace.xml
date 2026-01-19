@@ -4,15 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a4367656-67ec-4d06-862a-1b6ae4096aa9" name="Changes" comment="Enemy shoot to player">
-      <change afterPath="$PROJECT_DIR$/assets/dead.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/entities/particle.py" afterDir="false" />
+    <list default="true" id="a4367656-67ec-4d06-862a-1b6ae4096aa9" name="Changes" comment="Enemy death animation and damage animation">
+      <change afterPath="$PROJECT_DIR$/assets/ui/ui.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/ui.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/game.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/entities/enemy.py" beforeDir="false" afterPath="$PROJECT_DIR$/entities/enemy.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/entities/factory.py" beforeDir="false" afterPath="$PROJECT_DIR$/entities/factory.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/entities/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/entities/player.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,6 +61,7 @@
     "Python.menu.executor": "Run",
     "Python.player.executor": "Run",
     "Python.projectile.executor": "Run",
+    "Python.ui.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
@@ -77,11 +77,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Bartek\Desktop\Realm of the Mad God\assets\ui" />
       <recent name="C:\Users\Bartek\Desktop\Realm of the Mad God\assets" />
       <recent name="C:\Users\Bartek\Desktop\Realm of the Mad God\assets\enemies\bat" />
       <recent name="C:\Users\Bartek\Desktop\Realm of the Mad God\assets\enemies\butcher" />
       <recent name="C:\Users\Bartek\Desktop\Realm of the Mad God\assets\enemies\politicion" />
-      <recent name="C:\Users\Bartek\Desktop\Realm of the Mad God\assets\sfx" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -114,7 +114,8 @@
       <workItem from="1768173158840" duration="1266000" />
       <workItem from="1768204921427" duration="3520000" />
       <workItem from="1768310053948" duration="126000" />
-      <workItem from="1768818466146" duration="6475000" />
+      <workItem from="1768818466146" duration="7499000" />
+      <workItem from="1768828416391" duration="4301000" />
     </task>
     <task id="LOCAL-00001" summary="Player class, moving, animations. Projctile class.">
       <option name="closed" value="true" />
@@ -148,7 +149,15 @@
       <option name="project" value="LOCAL" />
       <updated>1768818567372</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Enemy death animation and damage animation">
+      <option name="closed" value="true" />
+      <created>1768825161995</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1768825161995</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -159,7 +168,8 @@
     <MESSAGE value="Step sound, and music" />
     <MESSAGE value="New enemies, camera" />
     <MESSAGE value="Enemy shoot to player" />
-    <option name="LAST_COMMIT_MESSAGE" value="Enemy shoot to player" />
+    <MESSAGE value="Enemy death animation and damage animation" />
+    <option name="LAST_COMMIT_MESSAGE" value="Enemy death animation and damage animation" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Realm_of_the_Mad_God$aa.coverage" NAME="aa Coverage Results" MODIFIED="1768822847854" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -167,9 +177,10 @@
     <SUITE FILE_PATH="coverage/Real_of_the_Mad_God$main.coverage" NAME="main Coverage Results" MODIFIED="1768038952252" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Realm_of_the_Mad_God$game.coverage" NAME="game Coverage Results" MODIFIED="1768164952110" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/core" />
     <SUITE FILE_PATH="coverage/Realm_of_the_Mad_God$enemy.coverage" NAME="enemy Coverage Results" MODIFIED="1768823078284" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/entities" />
-    <SUITE FILE_PATH="coverage/Realm_of_the_Mad_God$main.coverage" NAME="main Coverage Results" MODIFIED="1768824994846" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Realm_of_the_Mad_God$ui.coverage" NAME="ui Coverage Results" MODIFIED="1768830602354" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/core" />
+    <SUITE FILE_PATH="coverage/Realm_of_the_Mad_God$main.coverage" NAME="main Coverage Results" MODIFIED="1768832722622" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Realm_of_the_Mad_God$factory.coverage" NAME="factory Coverage Results" MODIFIED="1768818467152" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/entities" />
-    <SUITE FILE_PATH="coverage/Realm_of_the_Mad_God$player.coverage" NAME="player Coverage Results" MODIFIED="1768092937170" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/entities" />
+    <SUITE FILE_PATH="coverage/Realm_of_the_Mad_God$player.coverage" NAME="player Coverage Results" MODIFIED="1768829054605" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/entities" />
     <SUITE FILE_PATH="coverage/Realm_of_the_Mad_God$projectile.coverage" NAME="projectile Coverage Results" MODIFIED="1768051998049" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/entities" />
   </component>
 </project>

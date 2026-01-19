@@ -6,7 +6,7 @@ from entities.particle import DeathEffect
 
 
 class Enemy(pygame.sprite.Sprite):
-    def __init__(self, pos, groups, player, enemy_name, hp, speed, size, bullet_group, shoot_type=None, stop_distance=0):
+    def __init__(self, pos, groups, player, enemy_name, hp, speed, size, bullet_group, xp_reward, shoot_type=None, stop_distance=0):
         super().__init__(groups)
         self.player = player
         self.speed = speed
@@ -14,6 +14,7 @@ class Enemy(pygame.sprite.Sprite):
         self.size = size
         self.sprite_groups = groups
         self.bullet_group = bullet_group
+        self.xp_reward = xp_reward
 
         self.frame_index = 0
         self.animation_speed = 0.15
@@ -148,16 +149,16 @@ class Enemy(pygame.sprite.Sprite):
 class Ghost(Enemy):
     # (szerokosc, wysokosc)
     def __init__(self, pos, groups, player, enemy_name, hp, speed, bullet_group):
-        super().__init__(pos, groups, player, enemy_name, hp, speed, (60, 80), bullet_group, 'enemy')
+        super().__init__(pos, groups, player, enemy_name, hp, speed, (60, 80), bullet_group, 10, 'enemy')
 
 class Politician(Enemy):
     def __init__(self, pos, groups, player, enemy_name, hp, speed, bullet_group):
-        super().__init__(pos, groups, player, enemy_name, hp, speed, (55, 80), bullet_group)
+        super().__init__(pos, groups, player, enemy_name, hp, speed, (55, 80), bullet_group, 69)
 
 class Butcher(Enemy):
     def __init__(self, pos, groups, player, enemy_name, hp, speed, bullet_group):
-        super().__init__(pos, groups, player, enemy_name, hp, speed, (80, 110), bullet_group)
+        super().__init__(pos, groups, player, enemy_name, hp, speed, (80, 110), bullet_group, 150)
 
 class Bat(Enemy):
     def __init__(self, pos, groups, player, enemy_name, hp, speed, bullet_group):
-        super().__init__(pos, groups, player, enemy_name, hp, speed, (70, 70), bullet_group)
+        super().__init__(pos, groups, player, enemy_name, hp, speed, (70, 70), bullet_group, 20)

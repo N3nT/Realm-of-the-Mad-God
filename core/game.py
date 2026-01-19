@@ -5,6 +5,7 @@ import sys
 import config
 from entities.player import Player
 from entities.factory import TestFactory
+from core.ui import UI
 
 
 class CameraGroup(pygame.sprite.Group):
@@ -53,6 +54,7 @@ class Game:
         self.setup_music()
         self.setup_player()
         self.setup_enemies()
+        self.ui = UI()
 
     def setup_player(self):
         self.player = Player((config.SCREEN_WIDTH // 2, config.SCREEN_HEIGHT // 2), [self.all_sprites], self.player_bullets)
@@ -82,7 +84,11 @@ class Game:
         hits = pygame.sprite.groupcollide(self.enemy_group, self.player_bullets, False, True)
         if hits:
             for enemy in hits:
+                was_alive = enemy.health > 0
                 enemy.take_damage(10)
+
+                if was_alive and enemy.health <= 0:
+                    self.player.gain_xp(enemy.xp_reward)
 
         hits = pygame.sprite.spritecollide(self.player, self.enemy_bullets, True)
         if hits:
@@ -138,5 +144,6 @@ class Game:
             self.check_collision()
             self.screen.fill('black')
             self.all_sprites.custom_draw(self.player)
+            self.ui.display(self.player)
             pygame.display.flip()
             self.clock.tick(config.FPS)

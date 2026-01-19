@@ -15,14 +15,17 @@ class Player(pygame.sprite.Sprite):
         self.invincibility_duration = 500
 
         self.health = 1000
-        self.max_health = 100
+        self.max_health = 1000
 
         self.image = pygame.Surface((config.PLAYER_SIZE, config.PLAYER_SIZE))
         self.rect = self.image.get_rect(topleft=pos)
 
         self.status = 'down'
         self.frame_index = 0
-        self.animation_speed = 0.15
+
+        self.walk_animation_speed = 0.15
+        self.sprint_animation_speed = 0.25
+        self.animation_speed = self.walk_animation_speed
 
         self.is_attacking = False
         self.attack_time = 0
@@ -40,6 +43,15 @@ class Player(pygame.sprite.Sprite):
 
         self.step_timer = 0
         self.step_delay = 350
+
+        self.energy = 100
+        self.max_energy = 100
+        self.energy_drain_rate = 0.5
+        self.energy_recover_rate = 0.05
+
+        self.xp = 0
+        self.level = 1
+        self.xp_to_next_level = 100
 
     def import_assets(self):
         """Wczytuje grafiki: down_0-3, left_0-3, right_0-3, up_0-3"""
@@ -107,6 +119,25 @@ class Player(pygame.sprite.Sprite):
         else:
             self.direction.x = 0
 
+        if keys[pygame.K_LSHIFT] and self.energy > 0:
+            self.speed = config.PLAYER_SPRINT_SPEED
+            self.animation_speed = self.sprint_animation_speed
+            self.energy -= self.energy_drain_rate
+
+            if self.energy < 0:
+                self.energy = 0
+                self.speed = config.PLAYER_SPEED
+                self.animation_speed = self.walk_animation_speed
+
+        else:
+            self.speed = config.PLAYER_SPEED
+            self.animation_speed = self.walk_animation_speed
+            if self.energy < self.max_energy:
+                self.energy += self.energy_recover_rate
+
+                if self.energy > self.max_energy:
+                    self.energy = self.max_energy
+
         if mouse[0] and self.can_shoot:
             self.create_bullet()
             self.can_shoot = False
@@ -151,6 +182,26 @@ class Player(pygame.sprite.Sprite):
                 if self.step_sound:
                     self.step_sound.play()  # Odtwórz dźwięk
                 self.step_timer = current_time  # Zresetuj timer
+
+    def gain_xp(self, amount):
+        self.xp += amount
+        print(f"zdobyl {amount} xp")
+
+        while self.xp >= self.xp_to_next_level:
+            self.level_up()
+
+    def level_up(self):
+        self.level += 1
+
+        self.xp -= self.xp_to_next_level
+        self.xp_to_next_level = int(self.xp_to_next_level * 1.75)
+
+        self.max_health += 50
+        self.max_energy += 10
+
+        self.health = self.max_health
+        self.energy = self.max_energy
+
 
     def animate(self):
         # Animacje ataku
