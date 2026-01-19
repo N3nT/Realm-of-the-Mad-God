@@ -46,12 +46,16 @@ class Game:
         self.clock = pygame.time.Clock()
 
         self.all_sprites = CameraGroup()
+        self.enemy_group = pygame.sprite.Group()
+        self.player_bullets = pygame.sprite.Group()
+        self.enemy_bullets = pygame.sprite.Group()
+
         self.setup_music()
         self.setup_player()
         self.setup_enemies()
 
     def setup_player(self):
-        self.player = Player((config.SCREEN_WIDTH // 2, config.SCREEN_HEIGHT // 2), [self.all_sprites])
+        self.player = Player((config.SCREEN_WIDTH // 2, config.SCREEN_HEIGHT // 2), [self.all_sprites], self.player_bullets)
 
     def setup_music(self):
         music_folder = os.path.join('assets', 'music')
@@ -69,10 +73,32 @@ class Game:
 
     def setup_enemies(self):
         current_level_factory = TestFactory()
-        current_level_factory.create_ghost((600, 100), [self.all_sprites], self.player)
-        current_level_factory.create_politician((500, 150), [self.all_sprites], self.player)
-        current_level_factory.create_butcher((400, 150), [self.all_sprites], self.player)
-        current_level_factory.create_bat((300, 150), [self.all_sprites], self.player)
+        current_level_factory.create_ghost((600, 100), [self.all_sprites, self.enemy_group], self.player, self.enemy_bullets)
+        current_level_factory.create_politician((500, 150), [self.all_sprites, self.enemy_group], self.player, self.player_bullets)
+        current_level_factory.create_butcher((400, 150), [self.all_sprites, self.enemy_group], self.player, self.player_bullets)
+        current_level_factory.create_bat((300, 150), [self.all_sprites, self.enemy_group], self.player, self.player_bullets)
+
+    def check_collision(self):
+        hits = pygame.sprite.groupcollide(self.enemy_group, self.player_bullets, False, True)
+        if hits:
+            for enemy in hits:
+                enemy.take_damage(10)
+
+        hits = pygame.sprite.spritecollide(self.player, self.enemy_bullets, True)
+        if hits:
+            for bullet in hits:
+                self.player.health -= 10
+                print(f"HP Gracza: {self.player.health}")
+                self.player.take_damage(10)
+
+        body_hits = pygame.sprite.spritecollide(self.player, self.enemy_group, False)
+        if body_hits:
+            self.player.take_damage(20)
+
+        if self.player.health <= 0:
+            # todo przejdz widoku koncowego
+            print("GAME OVER")
+
 
     def play_music(self):
         """Odtwarza bieżący utwór z playlisty"""
@@ -109,6 +135,7 @@ class Game:
                 self.update_playlist()
 
             self.all_sprites.update()
+            self.check_collision()
             self.screen.fill('black')
             self.all_sprites.custom_draw(self.player)
             pygame.display.flip()

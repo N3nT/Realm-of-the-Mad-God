@@ -4,10 +4,18 @@ import os
 from entities.projectile import Projectile
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, pos, groups):
+    def __init__(self, pos, groups, create_bullet_group):
         super().__init__(groups)
 
         self.sprite_groups = groups
+        self.bullet_group = create_bullet_group
+
+        self.vulnerable = True
+        self.hurt_time = 0
+        self.invincibility_duration = 500
+
+        self.health = 1000
+        self.max_health = 100
 
         self.image = pygame.Surface((config.PLAYER_SIZE, config.PLAYER_SIZE))
         self.rect = self.image.get_rect(topleft=pos)
@@ -121,7 +129,7 @@ class Player(pygame.sprite.Sprite):
             direction = direction.normalize()
 
         # Tworzymy pocisk w miejscu, gdzie stoi gracz
-        Projectile(self.rect.center, direction, self.sprite_groups)
+        Projectile(self.rect.center, direction, [self.sprite_groups[0], self.bullet_group])
 
         self.attack_sound.play()
 
@@ -172,9 +180,30 @@ class Player(pygame.sprite.Sprite):
 
         self.rect.center += self.direction * self.speed
 
+    def invincibility_timer(self):
+        if not self.vulnerable:
+            current_time = pygame.time.get_ticks()
+            if current_time - self.hurt_time >= self.invincibility_duration:
+                self.vulnerable = True
+                # Opcjonalnie: przywróć normalną grafikę (jeśli robiłbyś miganie)
+                self.image.set_alpha(255)  # Pełna widoczność
+
+    def take_damage(self, amount):
+        if self.vulnerable:
+            self.health -= amount
+            self.vulnerable = False
+            self.hurt_time = pygame.time.get_ticks()
+
+            self.image.set_alpha(150)
+
+            print(f"Otrzymano {amount} obrażeń! HP: {self.health}")
+            if self.health <= 0:
+                print("GAME OVER")
+
     def update(self):
         self.input()
         self.play_step_sfx()
         self.animate()
         self.cooldown_handler()
         self.move()
+        self.invincibility_timer()

@@ -4,14 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a4367656-67ec-4d06-862a-1b6ae4096aa9" name="Changes" comment="New enemies, camera">
-      <change afterPath="$PROJECT_DIR$/menu.py" afterDir="false" />
+    <list default="true" id="a4367656-67ec-4d06-862a-1b6ae4096aa9" name="Changes" comment="Enemy shoot to player">
+      <change afterPath="$PROJECT_DIR$/assets/dead.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/entities/particle.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/projectile/projectile_0.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/projectile/player_projectile_0.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/game.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/entities/enemy.py" beforeDir="false" afterPath="$PROJECT_DIR$/entities/enemy.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/entities/factory.py" beforeDir="false" afterPath="$PROJECT_DIR$/entities/factory.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/entities/projectile.py" beforeDir="false" afterPath="$PROJECT_DIR$/entities/projectile.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/entities/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/entities/player.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,6 +56,7 @@
   "keyToString": {
     "Python.aa.executor": "Run",
     "Python.enemy.executor": "Run",
+    "Python.factory.executor": "Run",
     "Python.game.executor": "Run",
     "Python.main.executor": "Run",
     "Python.menu.executor": "Run",
@@ -75,11 +77,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Bartek\Desktop\Realm of the Mad God\assets" />
       <recent name="C:\Users\Bartek\Desktop\Realm of the Mad God\assets\enemies\bat" />
       <recent name="C:\Users\Bartek\Desktop\Realm of the Mad God\assets\enemies\butcher" />
       <recent name="C:\Users\Bartek\Desktop\Realm of the Mad God\assets\enemies\politicion" />
       <recent name="C:\Users\Bartek\Desktop\Realm of the Mad God\assets\sfx" />
-      <recent name="C:\Users\Bartek\Desktop\Realm of the Mad God\assets\player" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -112,6 +114,7 @@
       <workItem from="1768173158840" duration="1266000" />
       <workItem from="1768204921427" duration="3520000" />
       <workItem from="1768310053948" duration="126000" />
+      <workItem from="1768818466146" duration="6475000" />
     </task>
     <task id="LOCAL-00001" summary="Player class, moving, animations. Projctile class.">
       <option name="closed" value="true" />
@@ -137,7 +140,15 @@
       <option name="project" value="LOCAL" />
       <updated>1768164902803</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Enemy shoot to player">
+      <option name="closed" value="true" />
+      <created>1768818567372</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1768818567372</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -147,15 +158,17 @@
     <MESSAGE value="Player class, moving, animations. Projctile class." />
     <MESSAGE value="Step sound, and music" />
     <MESSAGE value="New enemies, camera" />
-    <option name="LAST_COMMIT_MESSAGE" value="New enemies, camera" />
+    <MESSAGE value="Enemy shoot to player" />
+    <option name="LAST_COMMIT_MESSAGE" value="Enemy shoot to player" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Realm_of_the_Mad_God$aa.coverage" NAME="aa Coverage Results" MODIFIED="1768161764713" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Realm_of_the_Mad_God$aa.coverage" NAME="aa Coverage Results" MODIFIED="1768822847854" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Realm_of_the_Mad_God$menu.coverage" NAME="menu Coverage Results" MODIFIED="1768173998878" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Real_of_the_Mad_God$main.coverage" NAME="main Coverage Results" MODIFIED="1768038952252" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Realm_of_the_Mad_God$game.coverage" NAME="game Coverage Results" MODIFIED="1768164952110" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/core" />
-    <SUITE FILE_PATH="coverage/Realm_of_the_Mad_God$enemy.coverage" NAME="enemy Coverage Results" MODIFIED="1768207662180" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/entities" />
-    <SUITE FILE_PATH="coverage/Realm_of_the_Mad_God$main.coverage" NAME="main Coverage Results" MODIFIED="1768208422113" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Realm_of_the_Mad_God$enemy.coverage" NAME="enemy Coverage Results" MODIFIED="1768823078284" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/entities" />
+    <SUITE FILE_PATH="coverage/Realm_of_the_Mad_God$main.coverage" NAME="main Coverage Results" MODIFIED="1768824994846" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Realm_of_the_Mad_God$factory.coverage" NAME="factory Coverage Results" MODIFIED="1768818467152" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/entities" />
     <SUITE FILE_PATH="coverage/Realm_of_the_Mad_God$player.coverage" NAME="player Coverage Results" MODIFIED="1768092937170" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/entities" />
     <SUITE FILE_PATH="coverage/Realm_of_the_Mad_God$projectile.coverage" NAME="projectile Coverage Results" MODIFIED="1768051998049" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/entities" />
   </component>
