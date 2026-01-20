@@ -40,10 +40,14 @@ class Projectile(pygame.sprite.Sprite):
         self.image = pygame.transform.rotate(original_image, angle)
 
         self.rect = self.image.get_rect(center=pos)
+        self.hitbox = self.rect.inflate(-20, -20)
         self.type = type
 
     def update(self):
-        self.rect.center += self.direction * self.speed
+        self.rect.x += self.direction.x * self.speed
+        self.rect.y += self.direction.y * self.speed
 
-        if pygame.time.get_ticks() - self.spawn_time > self.lifetime:
+        self.hitbox.center = self.rect.center
+
+        if pygame.time.get_ticks() - self.spawn_time > 1000:
             self.kill()

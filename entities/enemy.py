@@ -8,9 +8,13 @@ from entities.particle import DeathEffect
 class Enemy(pygame.sprite.Sprite):
     def __init__(self, pos, groups, player, enemy_name, hp, speed, size, bullet_group, xp_reward, shoot_type=None, stop_distance=0):
         super().__init__(groups)
+        self.bar_max_width = 40
+        self.bar_height = 5
+
         self.player = player
         self.speed = speed
         self.health = hp
+        self.max_health = hp
         self.size = size
         self.sprite_groups = groups
         self.bullet_group = bullet_group

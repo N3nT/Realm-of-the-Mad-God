@@ -4,7 +4,7 @@ import os
 from entities.projectile import Projectile
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, pos, groups, create_bullet_group):
+    def __init__(self, pos, groups, obstacle_sprites, create_bullet_group):
         super().__init__(groups)
 
         self.sprite_groups = groups
@@ -52,6 +52,9 @@ class Player(pygame.sprite.Sprite):
         self.xp = 0
         self.level = 1
         self.xp_to_next_level = 100
+
+        self.obstacle_sprites = obstacle_sprites
+        self.hitbox = self.rect.inflate(-20, -26)
 
     def import_assets(self):
         """Wczytuje grafiki: down_0-3, left_0-3, right_0-3, up_0-3"""
@@ -229,14 +232,19 @@ class Player(pygame.sprite.Sprite):
         if self.direction.magnitude() != 0:
             self.direction = self.direction.normalize()
 
-        self.rect.center += self.direction * self.speed
+        self.hitbox.x += self.direction.x * self.speed
+        self.collision('horizontal')
+
+        self.hitbox.y += self.direction.y * self.speed
+        self.collision('vertical')
+
+        self.rect.center = self.hitbox.center
 
     def invincibility_timer(self):
         if not self.vulnerable:
             current_time = pygame.time.get_ticks()
             if current_time - self.hurt_time >= self.invincibility_duration:
                 self.vulnerable = True
-                # Opcjonalnie: przywróć normalną grafikę (jeśli robiłbyś miganie)
                 self.image.set_alpha(255)  # Pełna widoczność
 
     def take_damage(self, amount):
@@ -250,6 +258,32 @@ class Player(pygame.sprite.Sprite):
             print(f"Otrzymano {amount} obrażeń! HP: {self.health}")
             if self.health <= 0:
                 print("GAME OVER")
+
+    def collision(self, direction):
+        # Sprawdzamy kolizję hitboxa gracza z hitboxami ścian
+        # Warunek: if sprite.hitbox.colliderect(self.hitbox)
+
+        if direction == 'horizontal':
+            for sprite in self.obstacle_sprites:
+                if sprite.hitbox.colliderect(self.hitbox):
+
+                    if self.direction.x > 0:  # Szedł w PRAWO
+                        # Ustawiamy prawy bok gracza na lewym boku ściany
+                        self.hitbox.right = sprite.hitbox.left
+
+                    if self.direction.x < 0:  # Szedł w LEWO
+                        self.hitbox.left = sprite.hitbox.right
+
+        if direction == 'vertical':
+            for sprite in self.obstacle_sprites:
+                if sprite.hitbox.colliderect(self.hitbox):
+
+                    if self.direction.y > 0:  # Szedł w DÓŁ
+                        self.hitbox.bottom = sprite.hitbox.top
+
+                    if self.direction.y < 0:  # Szedł w GÓRĘ
+                        self.hitbox.top = sprite.hitbox.bottom
+
 
     def update(self):
         self.input()

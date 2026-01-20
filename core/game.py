@@ -6,34 +6,61 @@ import config
 from entities.player import Player
 from entities.factory import TestFactory
 from core.ui import UI
+from core.MapManager import MapManager
+from entities.tile import Tile
 
+def collide_hitbox(sprite1, sprite2):
+    return sprite1.hitbox.colliderect(sprite2.hitbox)
 
 class CameraGroup(pygame.sprite.Group):
     def __init__(self):
         super().__init__()
         self.display_surface = pygame.display.get_surface()
+        self.half_width = self.display_surface.get_width() // 2
+        self.half_height = self.display_surface.get_height() // 2
         self.offset = pygame.math.Vector2()
 
         # Tło (mapa)
-        self.ground_surf = pygame.Surface((2000, 2000))
-        self.ground_surf.fill((30, 30, 30))
-        # Kratka
-        for x in range(0, 2000, 100):
-            pygame.draw.line(self.ground_surf, (50, 50, 50), (x, 0), (x, 2000))
-        for y in range(0, 2000, 100):
-            pygame.draw.line(self.ground_surf, (50, 50, 50), (0, y), (2000, y))
-        self.ground_rect = self.ground_surf.get_rect(topleft=(0, 0))
+        self.floor_surf = pygame.image.load(os.path.join('assets', 'floor_flat.png')).convert()
+        self.floor_rect = self.floor_surf.get_rect()
+
+        self.bg_width = self.floor_rect.width
+        self.bg_height = self.floor_rect.height
 
     def custom_draw(self, player):
-        self.offset.x = player.rect.centerx - config.SCREEN_WIDTH // 2
-        self.offset.y = player.rect.centery - config.SCREEN_HEIGHT // 2
+        self.offset.x = player.rect.centerx - self.half_width
+        self.offset.y = player.rect.centery - self.half_height
 
-        floor_offset_pos = self.ground_rect.topleft - self.offset
-        self.display_surface.blit(self.ground_surf, floor_offset_pos)
+        start_col = int(self.offset.x // self.bg_width)
+        start_row = int(self.offset.y // self.bg_height)
+
+        cols_visible = int(self.display_surface.get_width() // self.bg_width) + 2
+        rows_visible = int(self.display_surface.get_height() // self.bg_height) + 2
+
+        for row in range(rows_visible):
+            for col in range(cols_visible):
+                # Obliczamy pozycję X i Y konkretnego kafelka w świecie
+                # (start_col + col) to indeks kafelka
+                x = (start_col + col) * self.bg_width - self.offset.x
+                y = (start_row + row) * self.bg_height - self.offset.y
+
+                self.display_surface.blit(self.floor_surf, (x, y))
 
         for sprite in sorted(self.sprites(), key=lambda sprite: sprite.rect.centery):
             offset_pos = sprite.rect.topleft - self.offset
             self.display_surface.blit(sprite.image, offset_pos)
+
+            if hasattr(sprite, 'xp_reward') and sprite.health < sprite.max_health:
+                bar_x = offset_pos[0] + (sprite.rect.width // 2) - (sprite.bar_max_width // 2)
+                bar_y = offset_pos[1] - 10
+                ratio = sprite.health / sprite.max_health
+                current_bar_width = sprite.bar_max_width * ratio
+                bg_rect = pygame.Rect(bar_x, bar_y, sprite.bar_max_width, sprite.bar_height)
+                pygame.draw.rect(self.display_surface, '#111111', bg_rect)
+                if current_bar_width > 0:
+                    hp_rect = pygame.Rect(bar_x, bar_y, current_bar_width, sprite.bar_height)
+                    pygame.draw.rect(self.display_surface, 'red', hp_rect)
+
 
 
 class Game:
@@ -47,6 +74,7 @@ class Game:
         self.clock = pygame.time.Clock()
 
         self.all_sprites = CameraGroup()
+        self.obstacle_sprites = pygame.sprite.Group()
         self.enemy_group = pygame.sprite.Group()
         self.player_bullets = pygame.sprite.Group()
         self.enemy_bullets = pygame.sprite.Group()
@@ -55,9 +83,10 @@ class Game:
         self.setup_player()
         self.setup_enemies()
         self.ui = UI()
+        self.map_manager = MapManager(self.all_sprites, self.obstacle_sprites)
 
     def setup_player(self):
-        self.player = Player((config.SCREEN_WIDTH // 2, config.SCREEN_HEIGHT // 2), [self.all_sprites], self.player_bullets)
+        self.player = Player((config.SCREEN_WIDTH // 2, config.SCREEN_HEIGHT // 2), [self.all_sprites], self.obstacle_sprites,self.player_bullets)
 
     def setup_music(self):
         music_folder = os.path.join('assets', 'music')
@@ -96,6 +125,10 @@ class Game:
                 self.player.health -= 10
                 print(f"HP Gracza: {self.player.health}")
                 self.player.take_damage(10)
+
+        pygame.sprite.groupcollide(self.player_bullets, self.obstacle_sprites, True, False, collide_hitbox)
+        if hasattr(self, 'enemy_bullets'):
+            pygame.sprite.groupcollide(self.enemy_bullets, self.obstacle_sprites, True, False)
 
         body_hits = pygame.sprite.spritecollide(self.player, self.enemy_group, False)
         if body_hits:
@@ -140,6 +173,7 @@ class Game:
             if hasattr(self, 'MUSIC_END') and event.type == self.MUSIC_END:
                 self.update_playlist()
 
+            self.map_manager.update(self.player.rect.center)
             self.all_sprites.update()
             self.check_collision()
             self.screen.fill('black')
