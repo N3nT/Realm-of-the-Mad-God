@@ -6,7 +6,7 @@ from entities.particle import DeathEffect
 
 
 class Enemy(pygame.sprite.Sprite):
-    def __init__(self, pos, groups, player, enemy_name, hp, speed, size, bullet_group, xp_reward, shoot_type=None, stop_distance=0):
+    def __init__(self, pos, groups, player, enemy_name, hp, speed, size, bullet_group, xp_reward, obstacle_sprites, shoot_type=None, stop_distance=0, ):
         super().__init__(groups)
         self.bar_max_width = 40
         self.bar_height = 5
@@ -38,6 +38,10 @@ class Enemy(pygame.sprite.Sprite):
         self.hit_time = 0
         self.hit_duration = 150 #ms
 
+        self.obstacle_sprites = obstacle_sprites
+        self.rect = self.image.get_rect(topleft=pos)
+        self.hitbox = self.rect.inflate(0, -10)
+
     def import_graphics(self, name):
         self.frames = []
         path = os.path.join('assets', 'enemies', name)
@@ -53,31 +57,58 @@ class Enemy(pygame.sprite.Sprite):
                 print(f"OSTRZEŻENIE: Nie znaleziono pliku: {full_path}")
                 pass
 
-    def get_player_data(self):
+    def get_player_distance_direction(self, player):
         enemy_vec = pygame.math.Vector2(self.rect.center)
-        player_vec = pygame.math.Vector2(self.player.rect.center)
-        distance = (player_vec - enemy_vec).magnitude()
+        player_vec = pygame.math.Vector2(player.rect.center)
+
+        # Obliczamy wektor różnicy (od wroga do gracza)
+        diff_vec = player_vec - enemy_vec
+        distance = diff_vec.magnitude()
 
         if distance > 0:
-            direction = (player_vec - enemy_vec).normalize()
+            # Normalize skaluje wektor do długości 1 (sam kierunek)
+            direction = diff_vec.normalize()
         else:
             direction = pygame.math.Vector2()
 
-        return distance, direction
+        return (distance, direction)
+
+    def collision(self, direction):
+        # Jeśli wróg nie ma listy przeszkód pomiń sprawdzanie
+        if not self.obstacle_sprites:
+            return
+
+        if direction == 'horizontal':
+            for sprite in self.obstacle_sprites:
+                if sprite.hitbox.colliderect(self.hitbox):
+                    if self.direction.x > 0:  # Szedł w prawo
+                        self.hitbox.right = sprite.hitbox.left
+                    if self.direction.x < 0:  # Szedł w lewo
+                        self.hitbox.left = sprite.hitbox.right
+
+        if direction == 'vertical':
+            for sprite in self.obstacle_sprites:
+                if sprite.hitbox.colliderect(self.hitbox):
+                    if self.direction.y > 0:  # Szedł w dół
+                        self.hitbox.bottom = sprite.hitbox.top
+                    if self.direction.y < 0:  # Szedł w górę
+                        self.hitbox.top = sprite.hitbox.bottom
 
     def move(self):
-        '''Przeciwnik idzie do gracza, zatrzymuje sie w odpowiedniej odleglosci'''
-        distance, direction = self.get_player_data()
+        if self.direction.magnitude() != 0:
+            self.direction = self.direction.normalize()
 
-        if self.stop_distance < distance < 600:  # Reaguje z odległości 600px
-            self.direction = direction
-            self.rect.center += self.direction * self.speed
-        else:
-            self.direction = pygame.math.Vector2()
+        self.hitbox.x += self.direction.x * self.speed
+        self.collision('horizontal')
+
+        self.hitbox.y += self.direction.y * self.speed
+        self.collision('vertical')
+
+        self.rect.center = self.hitbox.center
 
     def shoot(self):
         if self.shoot_type and self.can_shoot:
-            distance, direction = self.get_player_data()
+            distance, direction = self.get_player_distance_direction(self.player)
 
             if distance < 500:
                 Projectile(self.rect.center, direction, [self.sprite_groups[0], self.bullet_group], type='enemy')
@@ -124,25 +155,50 @@ class Enemy(pygame.sprite.Sprite):
         if self.frame_index >= len(self.frames):
             self.frame_index = 0
 
-        # 1. Pobieramy klatkę
         original_img = self.frames[int(self.frame_index)]
 
-        # 2. Obracamy (jeśli idzie w lewo)
         if self.direction.x < 0:
             self.image = pygame.transform.flip(original_img, True, False)
         else:
             self.image = original_img.copy() # Robimy kopię, żeby nie zamalować oryginału w pamięci
 
-        # 3. NOWE: Nakładamy czerwony filtr
         if self._is_hit:
-            # Tworzymy czerwoną powierzchnię
             hurt_surf = self.image.copy()
-            # BLEND_RGB_ADD dodaje wartości kolorów (R+255, G+0, B+0)
-            # Sprawia to, że obrazek robi się jaskrawo czerwony/białawy
             hurt_surf.fill((200, 0, 0, 255), special_flags=pygame.BLEND_RGB_ADD)
             self.image = hurt_surf
 
+    def repel_neighbors(self):
+        repel_vector = pygame.math.Vector2(0, 0)
+
+        for sprite in self.groups()[0]:
+
+            if sprite is not self and hasattr(sprite, 'sprite_type') and sprite.sprite_type == 'enemy':
+
+                enemy_vec = pygame.math.Vector2(self.rect.center)
+                other_vec = pygame.math.Vector2(sprite.rect.center)
+
+                diff = enemy_vec - other_vec
+                dist = diff.magnitude()
+
+                if 0 < dist < 50:
+                    diff = diff.normalize()
+                    repel_vector += diff
+
+        return repel_vector
+
     def update(self):
+        dist, direction = self.get_player_distance_direction(self.player)
+        self.direction = direction
+
+        repel = self.repel_neighbors()
+        self.direction += repel * 1
+
+        if dist < self.stop_distance:
+            self.direction = pygame.math.Vector2()  # Stop
+
+        if dist > 2000:
+            self.kill()
+
         self.move()
         self.hit_reaction()
         self.animate()
@@ -152,17 +208,17 @@ class Enemy(pygame.sprite.Sprite):
 
 class Ghost(Enemy):
     # (szerokosc, wysokosc)
-    def __init__(self, pos, groups, player, enemy_name, hp, speed, bullet_group):
-        super().__init__(pos, groups, player, enemy_name, hp, speed, (60, 80), bullet_group, 10, 'enemy')
+    def __init__(self, pos, groups, player, enemy_name, hp, speed, bullet_group, obstacle_sprites):
+        super().__init__(pos, groups, player, enemy_name, hp, speed, (60, 80), bullet_group, 10, obstacle_sprites,'enemy')
 
 class Politician(Enemy):
-    def __init__(self, pos, groups, player, enemy_name, hp, speed, bullet_group):
-        super().__init__(pos, groups, player, enemy_name, hp, speed, (55, 80), bullet_group, 69)
+    def __init__(self, pos, groups, player, enemy_name, hp, speed, bullet_group, obstacle_sprites):
+        super().__init__(pos, groups, player, enemy_name, hp, speed, (55, 80), bullet_group, 69, obstacle_sprites)
 
 class Butcher(Enemy):
-    def __init__(self, pos, groups, player, enemy_name, hp, speed, bullet_group):
-        super().__init__(pos, groups, player, enemy_name, hp, speed, (80, 110), bullet_group, 150)
+    def __init__(self, pos, groups, player, enemy_name, hp, speed, bullet_group, obstacle_sprites):
+        super().__init__(pos, groups, player, enemy_name, hp, speed, (80, 110), bullet_group, 150, obstacle_sprites)
 
 class Bat(Enemy):
-    def __init__(self, pos, groups, player, enemy_name, hp, speed, bullet_group):
-        super().__init__(pos, groups, player, enemy_name, hp, speed, (70, 70), bullet_group, 20)
+    def __init__(self, pos, groups, player, enemy_name, hp, speed, bullet_group, obstacle_sprites):
+        super().__init__(pos, groups, player, enemy_name, hp, speed, (70, 70), bullet_group, 20, obstacle_sprites)

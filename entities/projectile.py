@@ -16,7 +16,7 @@ class Projectile(pygame.sprite.Sprite):
         else:
             file_name = 'enemy_projectile_0.png'
             self.speed = 6
-            self.lifetime = 1500
+            self.lifetime = 5000
 
         try:
             path = os.path.join('assets', 'projectile', file_name)

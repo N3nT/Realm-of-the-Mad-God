@@ -26,6 +26,7 @@ class CameraGroup(pygame.sprite.Group):
 
         self.bg_width = self.floor_rect.width
         self.bg_height = self.floor_rect.height
+        self.font = pygame.font.Font(os.path.join('assets', 'DungeonFont.ttf'), 24)
 
     def custom_draw(self, player):
         self.offset.x = player.rect.centerx - self.half_width
@@ -61,6 +62,23 @@ class CameraGroup(pygame.sprite.Group):
                     hp_rect = pygame.Rect(bar_x, bar_y, current_bar_width, sprite.bar_height)
                     pygame.draw.rect(self.display_surface, 'red', hp_rect)
 
+            if sprite == player:
+                level_text = f"Lvl: {player.level}"
+                text_surf = self.font.render(level_text, True, 'white')
+
+                text_rect = text_surf.get_rect(
+                    centerx=offset_pos[0] + sprite.rect.width // 2,
+                    bottom=offset_pos[1] - 10  # 10 px nad grafiką
+                )
+
+                shadow_surf = self.font.render(level_text, True, 'black')
+                shadow_rect = text_rect.copy()
+                shadow_rect.x += 1
+                shadow_rect.y += 1
+                self.display_surface.blit(shadow_surf, shadow_rect)
+
+                self.display_surface.blit(text_surf, text_rect)
+
 
 
 class Game:
@@ -79,11 +97,13 @@ class Game:
         self.player_bullets = pygame.sprite.Group()
         self.enemy_bullets = pygame.sprite.Group()
 
+        self.factory = TestFactory()
+
         self.setup_music()
         self.setup_player()
-        self.setup_enemies()
+        # self.setup_enemies()
         self.ui = UI()
-        self.map_manager = MapManager(self.all_sprites, self.obstacle_sprites)
+        self.map_manager = MapManager(self.all_sprites, self.obstacle_sprites, self.spawn_enemy_at_pos)
 
     def setup_player(self):
         self.player = Player((config.SCREEN_WIDTH // 2, config.SCREEN_HEIGHT // 2), [self.all_sprites], self.obstacle_sprites,self.player_bullets)
@@ -104,10 +124,10 @@ class Game:
 
     def setup_enemies(self):
         current_level_factory = TestFactory()
-        current_level_factory.create_ghost((600, 100), [self.all_sprites, self.enemy_group], self.player, self.enemy_bullets)
-        current_level_factory.create_politician((500, 150), [self.all_sprites, self.enemy_group], self.player, self.player_bullets)
-        current_level_factory.create_butcher((400, 150), [self.all_sprites, self.enemy_group], self.player, self.player_bullets)
-        current_level_factory.create_bat((300, 150), [self.all_sprites, self.enemy_group], self.player, self.player_bullets)
+        current_level_factory.create_ghost((600, 100), [self.all_sprites, self.enemy_group], self.player, self.enemy_bullets, self.obstacle_sprites)
+        current_level_factory.create_politician((500, 150), [self.all_sprites, self.enemy_group], self.player, self.player_bullets, self.obstacle_sprites)
+        current_level_factory.create_butcher((400, 150), [self.all_sprites, self.enemy_group], self.player, self.player_bullets, self.obstacle_sprites)
+        current_level_factory.create_bat((300, 150), [self.all_sprites, self.enemy_group], self.player, self.player_bullets, self.obstacle_sprites)
 
     def check_collision(self):
         hits = pygame.sprite.groupcollide(self.enemy_group, self.player_bullets, False, True)
@@ -161,6 +181,49 @@ class Game:
         if self.current_track >= len(self.playlist):
             self.current_track = 0  # Zapętlenie playlisty
         self.play_music()
+
+    def spawn_enemy_at_pos(self, pos):
+        import random
+
+        enemy_type = random.choice(['ghost', 'butcher', 'politician', 'bat'])
+
+        groups = [self.all_sprites, self.enemy_group]
+
+        if enemy_type == 'ghost':
+            self.factory.create_ghost(
+                pos,
+                groups,
+                self.player,
+                self.enemy_bullets,
+                self.obstacle_sprites
+            )
+
+        elif enemy_type == 'politician':
+            self.factory.create_politician(
+                pos,
+                groups,
+                self.player,
+                self.player_bullets,
+                self.obstacle_sprites
+            )
+
+        elif enemy_type == 'butcher':
+            self.factory.create_butcher(
+                pos,
+                groups,
+                self.player,
+                self.player_bullets,
+                self.obstacle_sprites
+            )
+
+        elif enemy_type == 'bat':
+            self.factory.create_bat(
+                pos,
+                groups,
+                self.player,
+                self.player_bullets,
+                self.obstacle_sprites
+            )
 
 
     def run(self):
