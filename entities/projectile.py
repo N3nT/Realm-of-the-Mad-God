@@ -1,27 +1,48 @@
-import pygame
-import config
 import math
 import os
+from typing import Set
+
+import pygame
+
+import config
 
 
 class Projectile(pygame.sprite.Sprite):
-    def __init__(self, pos, direction, groups, type='player'):
+    def __init__(
+        self,
+        pos: tuple,
+        direction: pygame.math.Vector2,
+        groups: list,
+        type: str = 'player',
+        power: int = 1,
+        enemy_projectile_type: int = 0,
+    ) -> None:
         super().__init__(groups)
 
-        # sprawdzenie kto uzywa pocisku
         if type == 'player':
-            file_name = 'player_projectile_0.png'
-            self.speed = config.BULLET_SPEED
-            self.lifetime = config.BULLET_LIFETIME
+            if power == 1:
+                file_name = 'player_projectile_0.png'
+                self.speed = config.BULLET_SPEED
+                self.lifetime = config.BULLET_LIFETIME
+                self.damage = 10
+                size = (65, 65)
+            else:
+                file_name = 'player_projectile_1.png'
+                self.speed = 10
+                self.lifetime = config.BULLET_LIFETIME
+                self.damage = 100
+                size = (80, 80)
         else:
-            file_name = 'enemy_projectile_0.png'
+            file_name = f'enemy_projectile_{enemy_projectile_type}.png'
             self.speed = 6
             self.lifetime = 5000
+            self.damage = 20
+            size = (40, 40)
 
         try:
             path = os.path.join('assets', 'projectile', file_name)
             original_image = pygame.image.load(path).convert_alpha()
-            original_image = pygame.transform.scale(original_image, (65, 65))
+            original_image = pygame.transform.scale(original_image, size)
         except FileNotFoundError:
             print(f"{path} not found")
             original_image = pygame.Surface((10, 10))
@@ -29,21 +50,18 @@ class Projectile(pygame.sprite.Sprite):
             original_image.fill(color)
 
         self.direction = direction
-        # path = os.path.join('assets', 'projectile', 'player_projectile_0.png')
-        # original_image = pygame.image.load(path).convert_alpha()
-        # original_image = pygame.transform.scale(original_image, (100, 100))
         self.spawn_time = pygame.time.get_ticks()
+        self.type = type
+        self.power = power
+        self.hit_enemies: Set[int] = set()
 
-
-        angle = math.degrees(math.atan2(-self.direction.y, self.direction.x))
-
-        self.image = pygame.transform.rotate(original_image, angle)
+        angle = math.degrees(math.atan2(self.direction.y, self.direction.x))
+        self.image = pygame.transform.rotate(original_image, -angle)
 
         self.rect = self.image.get_rect(center=pos)
         self.hitbox = self.rect.inflate(-20, -20)
-        self.type = type
 
-    def update(self):
+    def update(self) -> None:
         self.rect.x += self.direction.x * self.speed
         self.rect.y += self.direction.y * self.speed
 

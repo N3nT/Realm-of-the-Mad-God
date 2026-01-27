@@ -1,11 +1,14 @@
+import os
+
 import pygame
+
 import config
-import os  # Konieczny import do obsługi ścieżek
 
 
 class Tile(pygame.sprite.Sprite):
-    # Dodajemy argument 'connections' z domyślną wartością ""
-    def __init__(self, pos, groups, sprite_type, surface=None, connections=""):
+    def __init__(
+        self, pos: tuple, groups: list, sprite_type: str, surface=None, connections: str = ""
+    ) -> None:
         super().__init__(groups)
         self.sprite_type = sprite_type
 
@@ -16,22 +19,17 @@ class Tile(pygame.sprite.Sprite):
                 try:
                     path = os.path.join('assets', 'wall.png')
                     original_image = pygame.image.load(path).convert_alpha()
-                    original_image = pygame.transform.scale(original_image, (config.TILE_SIZE, config.TILE_SIZE))
+                    original_image = pygame.transform.scale(
+                        original_image, (config.TILE_SIZE, config.TILE_SIZE)
+                    )
 
-                    self.image = original_image  # Domyślny obrazek
+                    self.image = original_image
 
-                    # --- LOGIKA OBRACANIA ---
-
-                    # Jeśli ściana ma sąsiadów TYLKO góra/dół (jest pionowa)
-                    # Oraz NIE MA sąsiadów bocznych -> Obróć o 90 stopni
-                    is_vertical = ('N' in connections or 'S' in connections)
-                    is_horizontal = ('W' in connections or 'E' in connections)
+                    is_vertical = 'N' in connections or 'S' in connections
+                    is_horizontal = 'W' in connections or 'E' in connections
 
                     if is_vertical and not is_horizontal:
                         self.image = pygame.transform.rotate(original_image, 90)
-
-                    # (Opcjonalnie) Tutaj mógłbyś ładować zupełnie inne obrazki
-                    # np. if connections == "NSEW": self.image = load('wall_cross.png')
 
                 except Exception as e:
                     print(e)

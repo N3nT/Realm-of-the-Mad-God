@@ -4,14 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a4367656-67ec-4d06-862a-1b6ae4096aa9" name="Changes" comment="Wall, infinity map, add hitbox">
-      <change afterPath="$PROJECT_DIR$/assets/DungeonFont.ttf" afterDir="false" />
+    <list default="true" id="a4367656-67ec-4d06-862a-1b6ae4096aa9" name="Changes" comment="Map structure, colisions with walls">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/MapManager.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/MapManager.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/game.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/ui.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/ui.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/entities/enemy.py" beforeDir="false" afterPath="$PROJECT_DIR$/entities/enemy.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/entities/factory.py" beforeDir="false" afterPath="$PROJECT_DIR$/entities/factory.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/entities/projectile.py" beforeDir="false" afterPath="$PROJECT_DIR$/entities/projectile.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/entities/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/entities/player.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,31 +50,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.aa.executor&quot;: &quot;Run&quot;,
-    &quot;Python.enemy.executor&quot;: &quot;Run&quot;,
-    &quot;Python.factory.executor&quot;: &quot;Run&quot;,
-    &quot;Python.game.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main.executor&quot;: &quot;Debug&quot;,
-    &quot;Python.menu.executor&quot;: &quot;Run&quot;,
-    &quot;Python.player.executor&quot;: &quot;Run&quot;,
-    &quot;Python.projectile.executor&quot;: &quot;Run&quot;,
-    &quot;Python.tile.executor&quot;: &quot;Run&quot;,
-    &quot;Python.ui.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Bartek/Desktop/Uptime-Scheduler-master&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.aa.executor": "Run",
+    "Python.enemy.executor": "Run",
+    "Python.factory.executor": "Run",
+    "Python.game.executor": "Run",
+    "Python.main.executor": "Run",
+    "Python.menu.executor": "Run",
+    "Python.player.executor": "Run",
+    "Python.projectile.executor": "Run",
+    "Python.tile.executor": "Run",
+    "Python.ui.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/Bartek/Desktop/Uptime-Scheduler-master",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "ml.llm.LLMConfigurable",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Bartek\Desktop\Realm of the Mad God\assets" />
@@ -127,6 +126,10 @@
       <workItem from="1768944144152" duration="142000" />
       <workItem from="1768944670443" duration="2133000" />
       <workItem from="1769002359859" duration="5000" />
+      <workItem from="1769007163311" duration="5713000" />
+      <workItem from="1769013141747" duration="416000" />
+      <workItem from="1769444406181" duration="91000" />
+      <workItem from="1769444505977" duration="1682000" />
     </task>
     <task id="LOCAL-00001" summary="Player class, moving, animations. Projctile class.">
       <option name="closed" value="true" />
@@ -184,7 +187,15 @@
       <option name="project" value="LOCAL" />
       <updated>1768911348888</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Map structure, colisions with walls">
+      <option name="closed" value="true" />
+      <created>1769007371940</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1769007371940</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -198,16 +209,17 @@
     <MESSAGE value="Enemy death animation and damage animation" />
     <MESSAGE value="Health, xp, manna bars (ui). Add xp logic, add sprint ability." />
     <MESSAGE value="Wall, infinity map, add hitbox" />
-    <option name="LAST_COMMIT_MESSAGE" value="Wall, infinity map, add hitbox" />
+    <MESSAGE value="Map structure, colisions with walls" />
+    <option name="LAST_COMMIT_MESSAGE" value="Map structure, colisions with walls" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Realm_of_the_Mad_God$aa.coverage" NAME="aa Coverage Results" MODIFIED="1768822847854" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Realm_of_the_Mad_God$menu.coverage" NAME="menu Coverage Results" MODIFIED="1768173998878" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Real_of_the_Mad_God$main.coverage" NAME="main Coverage Results" MODIFIED="1768038952252" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Realm_of_the_Mad_God$enemy.coverage" NAME="enemy Coverage Results" MODIFIED="1768823078284" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/entities" />
     <SUITE FILE_PATH="coverage/Realm_of_the_Mad_God$ui.coverage" NAME="ui Coverage Results" MODIFIED="1768830602354" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/core" />
     <SUITE FILE_PATH="coverage/Realm_of_the_Mad_God$game.coverage" NAME="game Coverage Results" MODIFIED="1768923071916" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/core" />
-    <SUITE FILE_PATH="coverage/Realm_of_the_Mad_God$main.coverage" NAME="main Coverage Results" MODIFIED="1768944146406" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Realm_of_the_Mad_God$enemy.coverage" NAME="enemy Coverage Results" MODIFIED="1769009111978" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/entities" />
+    <SUITE FILE_PATH="coverage/Realm_of_the_Mad_God$main.coverage" NAME="main Coverage Results" MODIFIED="1769444452123" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Realm_of_the_Mad_God$factory.coverage" NAME="factory Coverage Results" MODIFIED="1768818467152" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/entities" />
     <SUITE FILE_PATH="coverage/Realm_of_the_Mad_God$player.coverage" NAME="player Coverage Results" MODIFIED="1768833329546" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/entities" />
     <SUITE FILE_PATH="coverage/Realm_of_the_Mad_God$projectile.coverage" NAME="projectile Coverage Results" MODIFIED="1768051998049" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/entities" />

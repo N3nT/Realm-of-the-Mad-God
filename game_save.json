@@ -1,0 +1,14 @@
+{
+    "level": 3,
+    "xp": 5,
+    "xp_to_next_level": 306,
+    "health": 200,
+    "max_health": 200,
+    "energy": 120,
+    "max_energy": 120,
+    "position": {
+        "x": 1626,
+        "y": 489
+    },
+    "game_time": 28021
+}
