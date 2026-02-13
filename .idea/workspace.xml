@@ -5,12 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a4367656-67ec-4d06-862a-1b6ae4096aa9" name="Changes" comment="Map structure, colisions with walls">
+      <change afterPath="$PROJECT_DIR$/assets/readme_files/end.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/readme_files/ingame.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/readme_files/menu.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/MapManager.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/MapManager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/game.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/ui.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/ui.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/entities/enemy.py" beforeDir="false" afterPath="$PROJECT_DIR$/entities/enemy.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/entities/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/entities/player.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,17 +33,17 @@
     &quot;assignee&quot;: &quot;N3nT&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/N3nT/Realm-of-the-Mad-God.git&quot;,
-    &quot;accountId&quot;: &quot;58126f95-6844-4b38-a5c0-6f627a521347&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/N3nT/Realm-of-the-Mad-God.git",
+    "accountId": "df37ce4b-b7d7-4c2c-8c75-31be11ced101"
   }
-}</component>
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
 }</component>
   <component name="ProjectId" id="383qCCJ8rAb6nIwngypYyGoLUaZ" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+  <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
@@ -63,9 +63,11 @@
     "Python.tile.executor": "Run",
     "Python.ui.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/Bartek/Desktop/Uptime-Scheduler-master",
+    "last_opened_file_path": "/Users/bartosz/PycharmProjects/Realm-of-the-Mad-God",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -87,8 +89,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-PY-242.23339.19" />
-        <option value="bundled-python-sdk-0029f7779945-399fe30bd8c1-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-242.23339.19" />
+        <option value="bundled-js-predefined-d6986cc7102b-9c94529fcfe0-JavaScript-PY-252.26199.168" />
+        <option value="bundled-python-sdk-b3d66beaba9a-c6efb3732140-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-252.26199.168" />
       </set>
     </attachedChunks>
   </component>
@@ -130,6 +132,7 @@
       <workItem from="1769013141747" duration="416000" />
       <workItem from="1769444406181" duration="91000" />
       <workItem from="1769444505977" duration="1682000" />
+      <workItem from="1770982488408" duration="926000" />
     </task>
     <task id="LOCAL-00001" summary="Player class, moving, animations. Projctile class.">
       <option name="closed" value="true" />
@@ -211,6 +214,20 @@
     <MESSAGE value="Wall, infinity map, add hitbox" />
     <MESSAGE value="Map structure, colisions with walls" />
     <option name="LAST_COMMIT_MESSAGE" value="Map structure, colisions with walls" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/core/camera.py</url>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/entities/tile.py</url>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Realm_of_the_Mad_God$aa.coverage" NAME="aa Coverage Results" MODIFIED="1768822847854" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
